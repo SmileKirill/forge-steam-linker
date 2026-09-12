@@ -90,7 +90,7 @@ export async function handler(event) {
     await db.collection("users").doc(uid).set({
       steamLinked: true,
       steamId64,
-      library: admin.firestore.FieldValue.arrayUnion(...matchedSlugs)
+      ...(matchedSlugs.length > 0 ? { library: admin.firestore.FieldValue.arrayUnion(...matchedSlugs) } : {})
     }, { merge: true });
 
     return {
