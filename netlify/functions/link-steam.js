@@ -11,7 +11,7 @@ function getApp() {
 }
 
 function extractSteamId(input) {
-  const clean = input.trim().replace(/\/+$/, "");
+  const clean = input.trim().split("?")[0].split("#")[0].replace(/\/+$/, "");
   const profilesMatch = clean.match(/steamcommunity\.com\/profiles\/(\d{17})/);
   if (profilesMatch) return { steamId64: profilesMatch[1], vanity: null };
   const idMatch = clean.match(/steamcommunity\.com\/id\/([^/]+)/);
@@ -44,7 +44,7 @@ const CORS_HEADERS = {
 };
 
 export async function handler(event) {
-  if (event.httpMethod === "OPTIONS") return { statusCode: 204, headers: CORS_HEADERS, body: "" };
+  if (event.httpMethod === "OPTIONS") return { statusCode: 200, headers: CORS_HEADERS, body: "ok" };
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, headers: CORS_HEADERS, body: JSON.stringify({ error: "method not allowed" }) };
   }
