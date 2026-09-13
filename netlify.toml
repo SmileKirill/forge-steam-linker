@@ -4,6 +4,9 @@
 [functions]
   node_bundler = "esbuild"
 
+[functions."refresh-prices"]
+  schedule = "@hourly"
+
 [[headers]]
   for = "/.netlify/functions/*"
   [headers.values]
