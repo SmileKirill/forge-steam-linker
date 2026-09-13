@@ -29,7 +29,7 @@ async function resolveVanity(vanity) {
 }
 
 async function getOwnedAppIds(steamId64) {
-  const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${process.env.STEAM_API_KEY}&steamid=${steamId64}&include_appinfo=0&format=json`;
+  const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${process.env.STEAM_API_KEY}&steamid=${steamId64}&include_appinfo=0&include_played_free_games=1&format=json`;
   const res = await fetch(url);
   const data = await res.json();
   const games = data.response?.games;
