@@ -80,11 +80,11 @@ export async function handler(event) {
 
     const db = admin.firestore();
     const gamesSnap = await db.collection("games").select("steamAppId").get();
-    const ownedSet = new Set(ownedAppIds);
+    const ownedSet = new Set(ownedAppIds.map(String));
     const matchedSlugs = [];
     gamesSnap.forEach(doc => {
       const appId = doc.data().steamAppId;
-      if (appId && ownedSet.has(appId)) matchedSlugs.push(doc.id);
+      if (appId && ownedSet.has(String(appId))) matchedSlugs.push(doc.id);
     });
 
     await db.collection("users").doc(uid).set({
